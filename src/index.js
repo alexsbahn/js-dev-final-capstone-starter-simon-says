@@ -295,7 +295,7 @@ function playHumanTurn() {
   padContainer.classList.remove("unclickable");
   const remaining = computerSequence.length - playerSequence.length;
   setText(statusSpan, `Your turn! ${remaining} presses left`);
-  setText(heading, `Round ${roundCount + 1}`);
+  setText(heading, `Round ${computerSequence.length}}`);
 }
 
 /**
@@ -373,13 +373,15 @@ function checkRound() {
  * 3. Reset `roundCount` to an empty array
  */
 function resetGame(text) {
+  alert(text);
+
   // TODO: Write your code here.
   computerSequence = [];
   playerSequence = [];
   roundCount = 0;
 
   // Uncomment the code below:
-  alert(text);
+
   setText(heading, "Simon Says");
   startButton.classList.remove("hidden");
   statusSpan.classList.add("hidden");
