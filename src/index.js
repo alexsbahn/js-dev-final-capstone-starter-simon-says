@@ -7,9 +7,10 @@ const startButton = document.querySelector(".js-start-button");
 const statusSpan = document.querySelector(".js-status"); // Use querySelector() to get the status element
 const heading = document.querySelector(".js-heading"); // Use querySelector() to get the heading element
 const padContainer = document.querySelector(".js-pad-container"); // Use querySelector() to get the heading element
+/*Added selectors for difficulty level dropdown*/
+const levelSelect = document.querySelector(".js-level-select");
 
-/**
- * VARIABLES
+/* VARIABLES
  */
 let computerSequence = []; // track the computer-generated sequence of pad presses
 let playerSequence = []; // track the player-generated sequence of pad presses
@@ -45,14 +46,14 @@ const pads = [
     sound: new Audio("../assets/simon-says-sound-2.mp3"),
   },
   {
-    color: "blue",
-    selector: document.querySelector(".js-pad-blue"),
-    sound: new Audio("../assets/simon-says-sound-3.mp3"),
-  },
-  {
     color: "yellow",
     selector: document.querySelector(".js-pad-yellow"),
     sound: new Audio("../assets/simon-says-sound-4.mp3"),
+  },
+  {
+    color: "blue",
+    selector: document.querySelector(".js-pad-blue"),
+    sound: new Audio("../assets/simon-says-sound-3.mp3"),
   },
 ];
 
@@ -84,6 +85,8 @@ startButton.addEventListener("click", startButtonHandler);
  */
 function startButtonHandler() {
   // TODO: Write your code here.
+  level = Number(levelSelect.value);
+
   setLevel(level);
   roundCount = 0;
   computerSequence = [];
