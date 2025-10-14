@@ -97,13 +97,12 @@ function startButtonHandler() {
   maxRoundCount = setLevel(level);
 
   // Update the game interface
-  statusSpan.textContent = `Game started! Level ${level}.`;
+  startButton.classList.add("hidden"); // hide start
   statusSpan.classList.remove("hidden");
-  heading.textContent = "Watch the sequence...";
-  padContainer.classList.add("unclickable"); // prevent clicks while computer plays
+  setText(statusSpan, "Watch the sequence...");
+  padContainer.classList.add("unclickable"); // prevent clicks during computer turn
 
-  // Call function to start computer’s turn
-  playComputerTurn();
+  setTimeout(() => playComputerTurn(), 1000);
   //return { startButton, statusSpan };
 }
 
@@ -291,7 +290,7 @@ function activatePads(sequence) {
  */
 function playComputerTurn() {
   // TODO: Write your code here.
-   padContainer.classList.add("unclickable");
+  padContainer.classList.add("unclickable");
   setText(statusSpan, "The computer's turn...");
   roundCount++;
 
@@ -314,8 +313,8 @@ function playComputerTurn() {
  */
 function playHumanTurn() {
   // TODO: Write your code here.
-  padContainter.classList.remove("unclickable");
   playerSequence = [];
+  padContainter.classList.remove("unclickable");
   setText(statusSpan,, "Your turn! Repeat the sequence.");
   setText(heading, `Round ${roundCount}`);
 }
