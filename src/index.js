@@ -85,10 +85,9 @@ startButton.addEventListener("click", startButtonHandler);
 function startButtonHandler() {
   // TODO: Write your code here.
   setLevel(level);
-  roundCount = 1;
+  roundCount = 0;
   computerSequence = [];
   playerSequence = [];
-
   startButton.classList.add("hidden");
   statusSpan.classList.remove("hidden");
   padContainer.classList.add("unclickable");
@@ -97,8 +96,6 @@ function startButtonHandler() {
   setText(heading, "Watch the sequence...");
 
   setTimeout(() => playComputerTurn(), 1000);
-
-  return { startButton, statusSpan };
 }
 
 /**
@@ -128,8 +125,6 @@ function padHandler(event) {
 
   activatePad(color);
   checkPress(color);
-
-  return color;
 }
 
 /**
@@ -160,12 +155,8 @@ function padHandler(event) {
 function setLevel(level = 1) {
   // TODO: Write your code here.
   const levelMap = { 1: 8, 2: 14, 3: 20, 4: 31 };
-  if (!levelMap[level]) {
-    console.error("Please enter level 1, 2, 3, or 4");
-    return "Please enter level 1, 2, 3, or 4";
-  }
-
-  maxRoundCount = levelMap[level];
+  if (!levelMap[lvl]) return "Please enter level 1-4";
+  maxRoundCount = levelMap[lvl];
   return maxRoundCount;
 }
 
@@ -186,8 +177,8 @@ function setLevel(level = 1) {
  */
 function getRandomItem(collection) {
   if (collection.length === 0) return null;
-  const randomIndex = Math.floor(Math.random() * collection.length);
-  return collection[randomIndex];
+  return collection[Math.floor(Math.random() * collection.length)];
+  //return collection[randomIndex];
 }
 
 /**
@@ -195,9 +186,8 @@ function getRandomItem(collection) {
  */
 function setText(element, text) {
   // TODO: Write your code here.
-  if (!element) return;
   element.textContent = text;
-  return element;
+  //return element;
 }
 
 /**
@@ -271,15 +261,14 @@ function activatePads(sequence) {
 function playComputerTurn() {
   // TODO: Write your code here.
   padContainer.classList.add("unclickable");
-  setText(statusSpan, "The computer's turn...");
-  setText(heading, `Round ${roundCount} of ${maxRoundCount}`);
+  setText(statusSpan, "Computer's turn...");
+  setText(heading, `Round ${roundCount + 1} of ${maxRoundCount}`);
 
   const nextColor = getRandomItem(pads.map((p) => p.color));
   computerSequence.push(nextColor);
   activatePads(computerSequence);
 
-  const sequenceLength = computerSequence.length;
-  setTimeout(() => playHumanTurn(), sequenceLength * 600 + 1000);
+  setTimeout(() => playHumanTurn(), computerSequence.length * 600 + 500);
 }
 
 /**
@@ -293,9 +282,8 @@ function playHumanTurn() {
   // TODO: Write your code here.
   playerSequence = [];
   padContainer.classList.remove("unclickable");
-  const remaining = computerSequence.length - playerSequence.length;
-  setText(statusSpan, `Your turn! ${remaining} presses left`);
-  setText(heading, `Round ${computerSequence.length}}`);
+  setText(statusSpan, `Your turn! ${computerSequence.length} presses left`);
+  setText(heading, `Round ${roundCount + 1}`);
 }
 
 /**
