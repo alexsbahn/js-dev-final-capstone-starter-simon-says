@@ -160,10 +160,11 @@ function padHandler(event) {
 function setLevel(level = 1) {
   // TODO: Write your code here.
   const levelMap = { 1: 8, 2: 14, 3: 20, 4: 31 };
-  if (!levelMap[level]) { {
+  if (!levelMap[level]) {
     console.error("Please enter level 1, 2, 3, or 4");
     return "Please enter level 1, 2, 3, or 4";
   }
+
   maxRoundCount = levelMap[level];
   return maxRoundCount;
 }
@@ -278,7 +279,7 @@ function playComputerTurn() {
   activatePads(computerSequence);
 
   const sequenceLength = computerSequence.length;
-  setTimeout(() => playHumanTurn(), roundCount * 600 + 1000); // 5
+  setTimeout(() => playHumanTurn(), sequenceLength * 600 + 1000);
 }
 
 /**
