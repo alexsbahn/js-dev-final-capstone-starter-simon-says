@@ -59,18 +59,19 @@ h1 {
 }
 
 .pad-container {
-  width: 600px;
-  height: 600px;
+  width: 400px;
+  height: 400px;
   border-radius: 50%;
   display: grid;
-  grid-template-rows: 200px 200px;
-  grid-template-columns: 200px 200px;
-  grid-gap: 5px;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 0px;
   margin: 20px;
+  overflow: hidden; 
 }
 
 .pad-red {
-  border-top-left-radius: 200px;
+  border-top-left-radius: 100%;
   background-color: red;
 }
 
@@ -87,7 +88,7 @@ h1 {
 }
 
 .pad-green {
-  border-top-right-radius: 200px;
+  border-top-right-radius: 100%;
   background-color: green;
 }
 
@@ -104,7 +105,7 @@ h1 {
 }
 
 .pad-yellow {
-  border-bottom-right-radius: 200px;
+  border-bottom-right-radius: 100%;
   background-color: yellow;
 }
 
@@ -121,7 +122,7 @@ h1 {
 }
 
 .pad-blue {
-  border-bottom-left-radius: 200px;
+  border-bottom-left-radius: 100%;
   background-color: blue;
 }
 
