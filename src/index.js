@@ -85,7 +85,7 @@ startButton.addEventListener("click", startButtonHandler);
 function startButtonHandler() {
   // TODO: Write your code here.
   setLevel(level);
-  roundCount = 0;
+  roundCount = 1;
   computerSequence = [];
   playerSequence = [];
 
@@ -160,11 +160,10 @@ function padHandler(event) {
 function setLevel(level = 1) {
   // TODO: Write your code here.
   const levelMap = { 1: 8, 2: 14, 3: 20, 4: 31 };
-  if (!levelMap[selectedLevel]) {
+  if (!levelMap[level]) { {
     console.error("Please enter level 1, 2, 3, or 4");
     return "Please enter level 1, 2, 3, or 4";
   }
-  level = selectedLevel;
   maxRoundCount = levelMap[level];
   return maxRoundCount;
 }
@@ -272,13 +271,14 @@ function playComputerTurn() {
   // TODO: Write your code here.
   padContainer.classList.add("unclickable");
   setText(statusSpan, "The computer's turn...");
-  setText(heading, `Round ${roundCount + 1} of ${maxRoundCount}`);
+  setText(heading, `Round ${roundCount} of ${maxRoundCount}`);
 
   const nextColor = getRandomItem(pads.map((p) => p.color));
   computerSequence.push(nextColor);
   activatePads(computerSequence);
 
-  setTimeout(() => playHumanTurn(roundCount), roundCount * 600 + 1000); // 5
+  const sequenceLength = computerSequence.length;
+  setTimeout(() => playHumanTurn(), roundCount * 600 + 1000); // 5
 }
 
 /**
