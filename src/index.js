@@ -286,7 +286,7 @@ function playHumanTurn() {
   playerSequence = [];
   padContainer.classList.remove("unclickable");
   setText(statusSpan, `Your turn! ${computerSequence.length} presses left`);
-  setText(heading, `Round ${roundCount + 1}`);
+  setText(heading, `Round ${computerSequence.length}`);
 }
 
 /**
