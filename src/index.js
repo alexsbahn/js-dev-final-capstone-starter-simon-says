@@ -37,23 +37,23 @@ const pads = [
   {
     color: "red",
     selector: document.querySelector(".js-pad-red"),
-    sound: new Audio("../assets/simon-says-sound-1.mp3"),
+    sound: new Audio("assets/simon-says-sound-1.mp3"),
   },
   // TODO: Add the objects for the green, blue, and yellow pads. Use object for the red pad above as an example.
   {
     color: "green",
     selector: document.querySelector(".js-pad-green"),
-    sound: new Audio("../assets/simon-says-sound-2.mp3"),
+    sound: new Audio("assets/simon-says-sound-2.mp3"),
   },
   {
     color: "yellow",
     selector: document.querySelector(".js-pad-yellow"),
-    sound: new Audio("../assets/simon-says-sound-4.mp3"),
+    sound: new Audio("assets/simon-says-sound-4.mp3"),
   },
   {
     color: "blue",
     selector: document.querySelector(".js-pad-blue"),
-    sound: new Audio("../assets/simon-says-sound-3.mp3"),
+    sound: new Audio("assets/simon-says-sound-3.mp3"),
   },
 ];
 
@@ -63,7 +63,12 @@ const pads = [
 
 padContainer.addEventListener("click", padHandler);
 // TODO: Add an event listener `startButtonHandler()` to startButton.
-startButton.addEventListener("click", startButtonHandler);
+startButton.addEventListener("click", () => {
+  setLevel();
+  startButton.disabled = true;
+  statusSpan.innerText = "Level 1: Watch the sequence!";
+  startGame();
+});
 
 /**
  * EVENT HANDLERS
@@ -369,7 +374,12 @@ function resetGame(text) {
   // TODO: Write your code here.
   computerSequence = [];
   playerSequence = [];
+  gameSequence = [];
   roundCount = 0;
+  let score = 0;
+  document.getElementById("score").innerText = score;
+  isHumanTurn = false;
+  startButton.disabled = false;
 
   // Uncomment the code below:
 
