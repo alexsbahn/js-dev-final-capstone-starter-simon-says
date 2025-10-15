@@ -9,6 +9,8 @@ const heading = document.querySelector(".js-heading"); // Use querySelector() to
 const padContainer = document.querySelector(".js-pad-container"); // Use querySelector() to get the heading element
 /*Added selectors for difficulty level dropdown*/
 const levelSelect = document.querySelector(".js-level-select");
+/*Added mute button selector*/
+const muteButton = document.querySelector(".js-mute-button");
 
 /* VARIABLES
  */
@@ -17,6 +19,7 @@ let playerSequence = []; // track the player-generated sequence of pad presses
 let maxRoundCount = 0; // the max number of rounds, varies with the chosen level
 let roundCount = 0; // track the number of rounds that have been played so far
 let level = 1; // track the skill level of the game
+let muted = false; // track whether the sound is muted or not
 
 /**
  *
@@ -37,23 +40,23 @@ const pads = [
   {
     color: "red",
     selector: document.querySelector(".js-pad-red"),
-    sound: new Audio("assets/simon-says-sound-1.mp3"),
+    sound: new Audio("./assets/simon-says-sound-1.mp3"),
   },
   // TODO: Add the objects for the green, blue, and yellow pads. Use object for the red pad above as an example.
   {
     color: "green",
     selector: document.querySelector(".js-pad-green"),
-    sound: new Audio("assets/simon-says-sound-2.mp3"),
+    sound: new Audio("./assets/simon-says-sound-2.mp3"),
   },
   {
     color: "yellow",
     selector: document.querySelector(".js-pad-yellow"),
-    sound: new Audio("assets/simon-says-sound-4.mp3"),
+    sound: new Audio("./assets/simon-says-sound-3.mp3"),
   },
   {
     color: "blue",
     selector: document.querySelector(".js-pad-blue"),
-    sound: new Audio("assets/simon-says-sound-3.mp3"),
+    sound: new Audio("./assets/simon-says-sound-4.mp3"),
   },
 ];
 
@@ -69,6 +72,7 @@ startButton.addEventListener("click", () => {
   statusSpan.innerText = "Level 1: Watch the sequence!";
   startGame();
 });
+muteButton.addEventListener("click", toggleMute);
 
 /**
  * EVENT HANDLERS
@@ -217,9 +221,15 @@ function activatePad(color) {
   if (!pad) return;
 
   pad.selector.classList.add("activated");
-  pad.sound.play();
+  if (!muted) pad.sound.play();
 
-  setTimeout(() => pad.selector.classList.remove("activated"), 500);
+  pad.selector.style.transiton =
+    "background-color 0.3s ease, transform 0.2s ease";
+  pad.selector.style.transform = "scale(1.1)";
+  setTimeout(() => {
+    pad.selector.classList.remove("activated");
+    pad.selector.style.transform = "scale(1)";
+  }, 500);
 }
 
 /**
@@ -239,7 +249,7 @@ function activatePad(color) {
 function activatePads(sequence) {
   // TODO: Write your code here.
   sequence.forEach((color, index) => {
-    setTimeout(() => activatePad(color), index * 600);
+    setTimeout(() => activatePad(color), index * 700);
   });
 }
 
@@ -276,7 +286,8 @@ function playComputerTurn() {
   computerSequence.push(nextColor);
   activatePads(computerSequence);
 
-  setTimeout(() => playHumanTurn(), computerSequence.length * 600 + 500);
+  const totalDuration = computerSequence.length * 700 + 500; // 700ms per pad + 500ms buffer
+  setTimeout(() => playHumanTurn(), totalDuration);
 }
 
 /**
@@ -291,7 +302,7 @@ function playHumanTurn() {
   playerSequence = [];
   padContainer.classList.remove("unclickable");
   setText(statusSpan, `Your turn! ${computerSequence.length} presses left`);
-  setText(heading, `Round ${computerSequence.length}`);
+  setText(heading, `Round ${roundCount + 1}`);
 }
 
 /**
@@ -356,7 +367,12 @@ function checkRound() {
   }
   setText(statusSpan, "Nice! Keep going! Next round starting...");
   padContainer.classList.add("unclickable");
-  setTimeout(() => playComputerTurn(), 1000);
+
+  heading.style.opacity = "0.5";
+  setTimeout(() => {
+    heading.style.opacity = "1";
+  }, 1200);
+  //setTimeout(() => playComputerTurn(), 1000);
 }
 
 /**
@@ -376,17 +392,22 @@ function resetGame(text) {
   playerSequence = [];
   gameSequence = [];
   roundCount = 0;
-  let score = 0;
-  document.getElementById("score").innerText = score;
-  isHumanTurn = false;
-  startButton.disabled = false;
+  //**let score = 0; document.getElementById("score").innerText = score;isHumanTurn = false;
 
   // Uncomment the code below:
 
   setText(heading, "Simon Says");
+  setText(statusSpan, "Press start to play again!");
+  padContainer.classList.add("unclickable");
   startButton.classList.remove("hidden");
   statusSpan.classList.add("hidden");
-  padContainer.classList.add("unclickable");
+  startButton.disabled = false;
+}
+
+//**Added mute button */
+function toggleMute() {
+  muted = !muted;
+  muteButton.textContent = muted ? "Unmute" : "Mute";
 }
 
 /**
