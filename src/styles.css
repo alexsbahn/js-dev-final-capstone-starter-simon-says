@@ -37,13 +37,13 @@ h1 {
   display: inline-block;
   height: 38px;
   padding: 0 30px;
-  color: greenyellow;
+  color: teal;
   text-align: center;
   font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
   background-color: transparent;
-  border: 1px solid greenyellow;
+  border: 1px solid teal;
   cursor: hand;
 }
 
