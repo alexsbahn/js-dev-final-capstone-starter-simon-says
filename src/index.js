@@ -11,6 +11,9 @@ const padContainer = document.querySelector(".js-pad-container"); // Use querySe
 const levelSelect = document.querySelector(".js-level-select");
 /*Added mute button selector*/
 const muteButton = document.querySelector(".js-mute-button");
+const startButtonHandler = () => {
+  console.log("Start button clicked");
+};
 
 /* VARIABLES
  */
@@ -40,23 +43,23 @@ const pads = [
   {
     color: "red",
     selector: document.querySelector(".js-pad-red"),
-    sound: new Audio("./assets/simon-says-sound-1.mp3"),
+    sound: new Audio("../assets/simon-says-sound-1.mp3"),
   },
   // TODO: Add the objects for the green, blue, and yellow pads. Use object for the red pad above as an example.
   {
     color: "green",
     selector: document.querySelector(".js-pad-green"),
-    sound: new Audio("./assets/simon-says-sound-2.mp3"),
+    sound: new Audio("../assets/simon-says-sound-2.mp3"),
   },
   {
     color: "yellow",
     selector: document.querySelector(".js-pad-yellow"),
-    sound: new Audio("./assets/simon-says-sound-3.mp3"),
+    sound: new Audio("../assets/simon-says-sound-4.mp3"),
   },
   {
     color: "blue",
     selector: document.querySelector(".js-pad-blue"),
-    sound: new Audio("./assets/simon-says-sound-4.mp3"),
+    sound: new Audio("../assets/simon-says-sound-3.mp3"),
   },
 ];
 
@@ -67,10 +70,13 @@ const pads = [
 padContainer.addEventListener("click", padHandler);
 // TODO: Add an event listener `startButtonHandler()` to startButton.
 //** startButton.addEventListener("click", () => { setLevel(); startButton.disabled = true; statusSpan.innerText = "Level 1: Watch the sequence!";startGame();}):
-document.addEventListener("DOMContentLoaded", () => {
+/*document.addEventListener("DOMContentLoaded", () => {
   const startButton = document.querySelector(".js-start-button");
-  startButton.addEventListener("click", startButtonHandler);
-});
+  if (startButton) {startButton.addEventListener("click", startButtonHandler);
+  }
+});*/
+startButton.addEventListener("click", startButtonHandler);
+//**Added event listener for mute button */
 muteButton.addEventListener("click", toggleMute);
 
 /**
@@ -94,11 +100,11 @@ muteButton.addEventListener("click", toggleMute);
 function startButtonHandler() {
   // TODO: Write your code here.
   level = Number(levelSelect.value);
-
   setLevel(level);
   roundCount = 0;
   computerSequence = [];
   playerSequence = [];
+
   startButton.classList.add("hidden");
   statusSpan.classList.remove("hidden");
   padContainer.classList.add("unclickable");
@@ -106,7 +112,13 @@ function startButtonHandler() {
   setText(statusSpan, `Game started! Level ${level}`);
   setText(heading, "Watch the sequence...");
 
-  setTimeout(() => playComputerTurn(), 1000);
+  heading.style.transition = "opacity 0.6s ease";
+  heading.style.opacity = "0.5";
+
+  setTimeout(() => {
+    heading.style.opacity = "1";
+    playComputerTurn();
+  }, 800);
 }
 
 /**
@@ -220,11 +232,15 @@ function activatePad(color) {
   if (!pad) return;
 
   pad.selector.classList.add("activated");
-  if (!muted) pad.sound.play();
-
   pad.selector.style.transiton =
     "background-color 0.3s ease, transform 0.2s ease";
   pad.selector.style.transform = "scale(1.1)";
+
+  if (!muted) {
+    pad.sound.currentTime = 0; // Rewind to the start
+    pad.sound.play();
+  }
+
   setTimeout(() => {
     pad.selector.classList.remove("activated");
     pad.selector.style.transform = "scale(1)";
@@ -389,18 +405,20 @@ function resetGame(text) {
   // TODO: Write your code here.
   computerSequence = [];
   playerSequence = [];
-  gameSequence = [];
+  //gameSequence = [];
   roundCount = 0;
+  maxRoundCount = 0;
   //**let score = 0; document.getElementById("score").innerText = score;isHumanTurn = false;
 
   // Uncomment the code below:
 
   setText(heading, "Simon Says");
   setText(statusSpan, "Press start to play again!");
+
   padContainer.classList.add("unclickable");
   startButton.classList.remove("hidden");
-  statusSpan.classList.add("hidden");
   startButton.disabled = false;
+  statusSpan.classList.add("hidden");
 }
 
 //**Added mute button */
