@@ -12,7 +12,7 @@ html {
 
 body {
   color: teal;
-  font-family: 'Rubik Microbe', sans-serif;
+  font-family: sans-serif, Arial, 'Rubik Microbe';
   display: flex;
   justify-content: center;
   height: 100vh;
