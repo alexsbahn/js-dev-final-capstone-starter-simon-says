@@ -70,12 +70,13 @@ const pads = [
 padContainer.addEventListener("click", padHandler);
 // TODO: Add an event listener `startButtonHandler()` to startButton.
 //** startButton.addEventListener("click", () => { setLevel(); startButton.disabled = true; statusSpan.innerText = "Level 1: Watch the sequence!";startGame();}):
-/*document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
   const startButton = document.querySelector(".js-start-button");
-  if (startButton) {startButton.addEventListener("click", startButtonHandler);
+  if (startButton) {
+    startButton.addEventListener("click", startButtonHandler);
   }
-});*/
-startButton.addEventListener("click", startButtonHandler);
+});
+//startButton.addEventListener("click", startButtonHandler);
 //**Added event listener for mute button */
 muteButton.addEventListener("click", toggleMute);
 
