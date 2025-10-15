@@ -387,7 +387,8 @@ function checkRound() {
   setTimeout(() => {
     heading.style.opacity = "1";
   }, 1200);
-  //setTimeout(() => playComputerTurn(), 1000);
+
+  setTimeout(() => playComputerTurn(), 1000);
 }
 
 /**
