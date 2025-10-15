@@ -59,9 +59,6 @@ h1 {
 }
 
 .pad-container {
-  width: 400px;
-  height: 400px;
-  border-radius: 50%;
   display: grid;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;

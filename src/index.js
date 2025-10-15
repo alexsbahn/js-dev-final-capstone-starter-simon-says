@@ -8,7 +8,7 @@ const statusSpan = document.querySelector(".js-status"); // Use querySelector() 
 const heading = document.querySelector(".js-heading"); // Use querySelector() to get the heading element
 const padContainer = document.querySelector(".js-pad-container"); // Use querySelector() to get the heading element
 /*Added selectors for difficulty level dropdown*/
-const levelSelect = document.querySelector(".js-level-select");
+//const levelSelect = document.querySelector(".js-level-select");
 
 /* VARIABLES
  */
@@ -85,7 +85,7 @@ startButton.addEventListener("click", startButtonHandler);
  */
 function startButtonHandler() {
   // TODO: Write your code here.
-  level = Number(levelSelect.value);
+  //level = Number(levelSelect.value);
 
   setLevel(level);
   roundCount = 0;
