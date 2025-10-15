@@ -11,9 +11,9 @@ const padContainer = document.querySelector(".js-pad-container"); // Use querySe
 const levelSelect = document.querySelector(".js-level-select");
 /*Added mute button selector*/
 const muteButton = document.querySelector(".js-mute-button");
-const startButtonHandler = () => {
+/*const startButtonHandler = () => {
   console.log("Start button clicked");
-};
+};*/
 
 /* VARIABLES
  */
